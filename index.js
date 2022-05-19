@@ -9,13 +9,10 @@ const path = require("path");
 
 //route import
 const authRoute = require("./routes/authRoute");
-const productRoute = require("./routes/productRoute");
-const categoryRoute = require("./routes/categoryRoute");
-const SubCategoryRoute = require("./routes/subCategoryRoute");
-const pricesRoute = require("./routes/pricesRoute");
 const externalRoute = require("./routes/externalRoute");
 const itemRoute = require("./routes/itemRoute");
 const cityRoute = require("./routes/cityRoute");
+const commentRoute = require("./routes/commentRoute");
 
 //options
 const app = express();
@@ -31,8 +28,12 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //connect mongoDB
 mongoose
-  .connect(process.env.DATABASE_ONLINE)
-  .then(() => app.listen(port))
+  .connect(process.env.DATABASE_LOCAL)
+  .then(() => {
+    app.listen(port, () => {
+      console.log("DB Connected");
+    });
+  })
   .catch((err) => console.log(err));
 
 //home
@@ -41,6 +42,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", authRoute);
-app.use(externalRoute); //for upload media
 app.use("/item", itemRoute);
 app.use("/city", cityRoute);
+app.use("/comment", commentRoute);
+app.use(externalRoute); //for upload media

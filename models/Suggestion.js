@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const mongoosePaginate = require("mongoose-paginate-v2");
 
-const itemSchema = mongoose.Schema({
+const suggestionSchema = mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -20,9 +20,9 @@ const itemSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "City",
   },
-  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
+  rating: [{ type: mongoose.Schema.Types.ObjectId, ref: "Rating" }],
 });
 
-itemSchema.plugin(mongoosePaginate);
+suggestionSchema.plugin(mongoosePaginate);
 
-module.exports = mongoose.model("Item", itemSchema);
+module.exports = mongoose.model("Suggestion", suggestionSchema);

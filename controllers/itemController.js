@@ -69,7 +69,7 @@ const by_id = async (req, res) => {
   const { id } = req.params;
   console.log(id);
   try {
-    const doc = await Item.findById(id).populate(["city"]);
+    const doc = await Item.findById(id).populate(["city", "comments"]);
     console.log(doc);
     res.status(200).json({ success: true, data: doc });
   } catch (error) {
